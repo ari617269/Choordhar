@@ -4,30 +4,6 @@ A C++ implementation of a **typed TLV (Tag–Type–Length–Value) serializatio
 
 This repository demonstrates how to design, implement, and reason about a self-describing binary wire format without relying on fixed offsets or rigid struct layouts.
 
----
-
-## Summary
-
-This project implements a minimal yet extensible **TLTV (Tag-Type-Length-Value)** format in C++.
-
-### Key ideas
-- **Tags identify meaning**, not position
-- **Types define how bytes are interpreted**
-- **Lengths allow safe skipping of unknown fields**
-- No decoding logic depends on struct order or byte offsets
-- Forward and backward compatible by design
-
-### Supported features
-- Primitive types: `INT (int64)`, `BOOL`, `STRING`
-- Composite types: `ARRAY` (nested TLTV entries)
-- Big-endian encoding for portability
-- Safe parsing with truncation checks
-- Round-trip serialize → deserialize example (`MyData`)
-
-The implementation evolves from a minimal prototype to a structured design that can be extended into a reusable library.
-
----
-
 ## TLTV Wire Format
 
 Each entry is encoded as:
@@ -52,4 +28,27 @@ Each entry is encoded as:
 ```bash
 git clone https://github.com/ari617269/Choordhar.git
 cd Choordhar
+chmod +x build.sh
+./build.sh
 ```
+
+###Run
+####Compile
+```bash
+g++ -std=c++17 tltv.cpp -o tltv
+```
+
+####Execute
+```bash
+./tltv
+```
+
+###Expected output
+
+- Hex dump of the serialized TLTV buffer
+- Deserialized values printed to stdout
+- Successful round-trip verification of:
+  - bool
+  - int64
+  - string
+  - array<int64>
